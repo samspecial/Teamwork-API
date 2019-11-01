@@ -1,0 +1,33 @@
+{
+  "name": "teamwork-api",
+  "version": "1.0.0",
+  "description": "Building Restful API for Teamweak",
+  "main": "server.js",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cloudinary": "^1.16.0",
+    "express": "^4.17.1",
+    "nodemon": "^1.19.4",
+    "pg": "^7.12.1"
+  },
+  "devDependencies": {
+    "eslint": "^6.6.0",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-plugin-import": "^2.18.2",
+    "jasmine": "^3.5.0"
+  },
+  "scripts": {
+    "test": "jasmine",
+    "lint": "./node_modules/.bin/eslint"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/samspecial/Teamwork-API.git"
+  },
+  "author": "Samuel Osinloye",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/samspecial/Teamwork-API/issues"
+  },
+  "homepage": "https://github.com/samspecial/Teamwork-API#readme"
+}
