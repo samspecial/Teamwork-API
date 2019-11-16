@@ -25,17 +25,6 @@ class AdminService {
         }
     }
 
-    static async getAdmin(getUser) {
-        try {
-            const getUserQuery = 'SELECT "id", "firstname", "lastname", "email", "password", "gender", "jobrole", "department", "address", "createdon"  FROM users WHERE "id" = $1';
-            const values = [`${getUser}`];
-            const result = await pool.query(getUserQuery, values);
-            return result;
-        } catch (error) {
-            throw error;
-        }
-    }
-
 }
 
 
