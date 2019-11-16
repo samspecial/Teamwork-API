@@ -1,24 +1,35 @@
-const dotenv = require('dotenv')
 
-dotenv.config();
+require('dotenv').config();
 
 const { Pool } = require('pg');
 
-const isProduction = process.env.NODE_ENV === 'production';
-const connectionString = `postgresql://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}:
-${process.env.DB_PORT}/${process.env.DB_DATABASE}`
+console.log(`This is a ${process.env.NODE_ENV} environment`);
 
-const pool = new Pool({
-    connectionString: isProduction ? process.env.DATABASE_URL : connectionString,
-    ssl: isProduction,
-})
+let pool;
+const connectionString = `postgresql://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_DATABASE}`;
+const testConnectionString = `postgresql://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}:${process.env.DB_PORT}/employees`;
 
-const cloudinaySetup = {
-    cloud_name: "samspecial",
-    API_Key: 416273491525724,
-    API_Secret: "HD-1mVldft0xey1oP5kbF290z-M"
+if (process.env.NODE_ENV === 'production') {
+    pool = new Pool({
+        connectionString: process.env.DATABASE_URL,
+        ssl: process.env.NODE_ENV === 'production'
+    });
+} else if (process.env.NODE_ENV === 'test') {
+    pool = new Pool({
+        connectionString: testConnectionString
+    });
+} else {
+    pool = new Pool({
+        connectionString
+    });
 }
-console.log(pool)
-console.log(connectionString)
 
-module.exports = { pool }
+if (!pool) {
+    console.log('Database Setup  Was Unsuccessful');
+    process.exit(1);
+} else {
+    pool.on('connect', () => {
+        console.log('connected to the Database Successfully');
+    });
+}
+module.exports = pool;
