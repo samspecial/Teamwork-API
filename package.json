@@ -1,14 +1,31 @@
 {
   "name": "teamwork-api",
   "version": "1.0.0",
-  "description": "Building Restful API for Teamweak",
+  "description": "Building Restful API for Teamwork",
   "main": "server.js",
+  "engines": {
+    "node": "10.x"
+  },
   "dependencies": {
+    "bcrypt": "^3.0.6",
     "body-parser": "^1.19.0",
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
     "cloudinary": "^1.16.0",
+    "compression": "^1.7.4",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "express-rate-limit": "^5.0.0",
+    "express-validator": "^6.2.0",
+    "helmet": "^3.21.2",
+    "jsonwebtoken": "^8.5.1",
+    "mocha": "^6.2.2",
+    "multer": "^1.4.2",
     "nodemon": "^1.19.4",
-    "pg": "^7.12.1"
+    "pg": "^7.12.1",
+    "request": "^2.88.0",
+    "validator": "^12.0.0"
   },
   "devDependencies": {
     "eslint": "^6.6.0",

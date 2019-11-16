@@ -1,22 +1,48 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const app = express();
+const http = require('http');
+const app = require('./app');
 
-const createNewArticle = require('./controllers/articles/article');
+const normalizePort = (val) => {
+    const port = parseInt(val, 10);
 
+    if (typeof port !== 'number') {
+        return val;
+    }
+    if (port >= 0) {
+        return port;
+    }
+    return false;
+};
 
-const port = 3000;
+const port = normalizePort(process.env.PORT || 3000);
+app.set('port', port);
 
-app.use(bodyParser.json());
+const server = http.createServer(app);
 
-app.use(bodyParser.urlencoded({ extended: true }))
+const errorHandler = (error) => {
+    if (error.syscall !== 'listen') {
+        throw error;
+    }
+    const address = server.address();
+    const bind = typeof address === 'string' ? `pipe ${address}` : `port: ${port}`;
+    switch (error.code) {
+        case 'EACCES':
+            console.error(`${bind} requires elevated privileges.`);
+            process.exit(1);
+            break;
+        case 'EADDRINUSE':
+            console.error(`${bind} is already in use.`);
+            process.exit(1);
+            break;
+        default:
+            throw error;
+    }
+};
 
-app.get('/', (req, res) => {
-    res.json({ "Info": "Node.js, Express and Postgres" })
-})
-
-app.post('/articles', createNewArticle.createArticle);
-
-app.listen(port, () => {
-    console.log(`Connection Successful: Running on port ${port}.`)
+server.on('error', errorHandler);
+server.on('listening', () => {
+    const address = server.address();
+    const bind = typeof address === 'string' ? `pipe ${address}` : `port: ${port}`;
+    console.log(`Server Successfully Connected, Listening on ${bind}`);
 });
+
+server.listen(port);
