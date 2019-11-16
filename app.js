@@ -1,23 +1,13 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-// const hpp = require('hpp');
-// const helmet = require('helmet');
-// const url = require('url');
-// const fileupload = require('express-fileupload');
+
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cors());
-// app.use(hpp());
-// app.use(helmet());
-// app.use(fileupload({
-//     useTempFiles: true,
-//     createParentPath: true,
-//     safeFileNames: true,
-//     preserveExtension: true
-// }));
+
 
 const adminRoutes = require('./routes/adminRoutes');
 
@@ -41,16 +31,7 @@ app.get('/', (req, res) => {
 app.use('/api/v1', adminRoutes);
 
 
-/* * Checks for use of wrong version in url and flags error * */
-// app.use('/api', (req, res, next) => {
-//     const reqPath = url.parse(req.url, true);
-//     const version = reqPath.pathname.split('/');
-//     if (version[1] !== 'v1') {
-//         res.status(505).json({ message: `Sorry, Version ${version[1]} is not available` });
-//     } else {
-//         next();
-//     }
-//     res.end();
-// });
+
+
 
 module.exports = app;
